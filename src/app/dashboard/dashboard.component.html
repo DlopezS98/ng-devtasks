@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <span>Kanban Dashboard</span>
+</mat-toolbar>
+<div class="kanban-board">
+  <div class="kanban-column" *ngFor="let status of statuses">
+    <h3>{{ status }}</h3>
+    <div *ngFor="let task of tasksByStatus[status]">
+      <mat-card class="kanban-task">
+        <mat-card-title>{{ task.title }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+          <div class="labels">
+            <mat-chip-list>
+              <mat-chip *ngFor="let label of task.labels" [style.background]="label.color">{{ label.name }}</mat-chip>
+            </mat-chip-list>
+          </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <span>Priority: {{ task.priority }}</span>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>
