@@ -54,6 +54,80 @@ export class KanbanService {
         { id: 'l3', name: 'Testing', color: '#4caf50', createdAt: new Date(), updatedAt: null }
       ],
       priority: 4
+    },
+    {
+      id: '5',
+      title: 'Deployment',
+      description: 'Deploy application to production environment.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [
+        { id: 'l4', name: 'Deployment', color: '#ff9800', createdAt: new Date(), updatedAt: null }
+      ],
+      priority: 5
+    },
+    {
+      id: '6',
+      title: 'User Feedback',
+      description: 'Collect and analyze user feedback post-deployment.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [],
+      priority: 6
+    },
+    {
+      id: '7',
+      title: 'Bug Fixes',
+      description: 'Address bugs reported by users.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [
+        { id: 'l5', name: 'Bug', color: '#f44336', createdAt: new Date(), updatedAt: null }
+      ],
+      priority: 7
+    },
+    {
+      id: '8',
+      title: 'Performance Optimization',
+      description: 'Improve application performance and load times.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [
+        { id: 'l6', name: 'Performance', color: '#9c27b0', createdAt: new Date(), updatedAt: null }
+      ],
+      priority: 8
+    },
+    {
+      id: '9',
+      title: 'Documentation',
+      description: 'Create comprehensive documentation for the project.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [
+        { id: 'l7', name: 'Docs', color: '#607d8b', createdAt: new Date(), updatedAt: null }
+      ],
+      priority: 9
+    },
+    {
+      id: '10',
+      title: 'Feature Expansion',
+      description: 'Plan and implement new features based on user requests.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [],
+      priority: 10
     }
   ];
 
