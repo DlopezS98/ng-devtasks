@@ -9,6 +9,7 @@ import { KanbanService } from '../../../shared/services/kanban.service';
 import { KanbanColumnComponent } from './components/kanban-column/kanban-column.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
+import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 
 @Component({
   selector: 'app-tasks.component',
@@ -20,7 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     KanbanColumnComponent,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+    TasksListComponent
 ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './tasks.component.html',
