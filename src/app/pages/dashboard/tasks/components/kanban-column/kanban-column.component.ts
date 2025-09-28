@@ -1,4 +1,12 @@
-import { Component, input, InputSignal, computed, effect, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
+import {
+  Component,
+  input,
+  InputSignal,
+  computed,
+  effect,
+  CUSTOM_ELEMENTS_SCHEMA,
+  signal,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { TaskResponseDto, TaskStatus } from '../../../../../shared/models/task.model';
@@ -12,7 +20,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-kanban-column',
-  imports: [MatCardModule, MatIconModule, MatChipsModule, CommonModule, MatButtonModule, MatMenuModule, MatProgressSpinnerModule],
+  imports: [
+    MatCardModule,
+    MatIconModule,
+    MatChipsModule,
+    CommonModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './kanban-column.component.html',
   styleUrls: ['./kanban-column.component.scss'],
@@ -39,7 +55,7 @@ export class KanbanColumnComponent {
 
   constructor(private kanbanService: KanbanService) {
     effect(() => {
-      this.tasksSub = this.kanbanService.fetchTasksByStatus$(this.status()).subscribe(tasks => {
+      this.tasksSub = this.kanbanService.fetchTasksByStatus$(this.status()).subscribe((tasks) => {
         this.tasks = tasks;
         this.loading.set(false);
       });
