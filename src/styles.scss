@@ -17,6 +17,14 @@ html {
   ));
 }
 
+// overrides...
+:root {
+  @include mat.list-overrides((
+    active-indicator-color: mat.m2-get-color-from-palette(mat.$cyan-palette, 700),
+    active-indicator-shape: 16px,
+  ));
+}
+
 body {
   // Default the application to a light color theme. This can be changed to
   // `dark` to enable the dark color theme, or to `light dark` to defer to the
