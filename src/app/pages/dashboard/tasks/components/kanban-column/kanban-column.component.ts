@@ -6,10 +6,11 @@ import { KanbanService } from '../../../../../shared/services/kanban.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-kanban-column',
-  imports: [MatCardModule, MatIconModule, MatChipsModule, CommonModule, MatButtonModule],
+  imports: [MatCardModule, MatIconModule, MatChipsModule, CommonModule, MatButtonModule, MatMenuModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './kanban-column.component.html',
   styleUrls: ['./kanban-column.component.scss'],

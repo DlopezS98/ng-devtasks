@@ -10,9 +10,19 @@
     <mat-card class="kanban-task">
       <div class="kanban-task-header">
         <mat-card-subtitle>{{ task.title }}</mat-card-subtitle>
-        <button matIconButton>
+        <button matIconButton [matMenuTriggerFor]="taskMenu">
           <mat-icon>more_vert</mat-icon>
         </button>
+        <mat-menu #taskMenu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Edit Task</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Delete Task</span>
+          </button>
+        </mat-menu>
       </div>
       <mat-card-footer class="kanban-task-footer">
         <mat-chip-list class="kanban-task-labels">
