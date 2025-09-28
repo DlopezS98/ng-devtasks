@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { TaskResponseDto, TaskStatus } from '../models/task.model';
+import { Task, TaskStatus } from '../models/task.model';
+import { PagedResult } from '../models/query.model';
 
 
 @Injectable({ providedIn: 'root' })
 export class KanbanService {
-  private tasks: TaskResponseDto[] = [
+  private tasks: Task[] = [
     {
       id: '1',
       title: 'Setup project',
@@ -133,15 +134,25 @@ export class KanbanService {
     }
   ];
 
-  getTasks(): TaskResponseDto[] {
+  getTasks(): Task[] {
     return this.tasks;
   }
 
-  getTasksByStatus(status: TaskStatus): TaskResponseDto[] {
+  searchTasks$(): Observable<PagedResult<Task>> {
+    const pagedResult: PagedResult<Task> = {
+      items: this.tasks,
+      totalCount: this.tasks.length,
+      skip: 0,
+      take: this.tasks.length,
+    };
+    return of(pagedResult).pipe(delay(1200));
+  }
+
+  getTasksByStatus(status: TaskStatus): Task[] {
     return this.tasks.filter(task => task.status === status);
   }
 
-  fetchTasksByStatus$(status: TaskStatus): Observable<TaskResponseDto[]> {
+  fetchTasksByStatus$(status: TaskStatus): Observable<Task[]> {
     // Simulate API delay
     return of(this.getTasksByStatus(status)).pipe(delay(1200));
   }

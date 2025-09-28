@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
-import { TaskResponseDto, TaskStatus } from '../../../../../shared/models/task.model';
+import { Task, TaskStatus } from '../../../../../shared/models/task.model';
 import { MatIconModule } from '@angular/material/icon';
 import { KanbanService } from '../../../../../shared/services/kanban.service';
 import { MatChipsModule } from '@angular/material/chips';
@@ -49,7 +49,7 @@ export class KanbanColumnComponent {
   };
   icon = computed(() => this.iconsMap[this.status()]);
   title = computed(() => this.taskTitle[this.status()]);
-  tasks: TaskResponseDto[] = [];
+  tasks: Task[] = [];
   loading = signal(true);
   private tasksSub?: Subscription;
 

@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { TaskResponseDto, TaskStatus } from '../../../shared/models/task.model';
+import { Task, TaskStatus } from '../../../shared/models/task.model';
 import { KanbanService } from '../../../shared/services/kanban.service';
 import { KanbanColumnComponent } from './components/kanban-column/kanban-column.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -32,7 +32,7 @@ import { TasksListComponent } from './components/tasks-list/tasks-list.component
 })
 export class TasksComponent {
   statuses = Object.values(TaskStatus);
-  tasksByStatus: { [key: string]: TaskResponseDto[] } = {};
+  tasksByStatus: { [key: string]: Task[] } = {};
 
   constructor(private kanbanService: KanbanService) {
     this.statuses.forEach((status) => {
