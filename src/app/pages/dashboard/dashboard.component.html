@@ -1,24 +1,29 @@
-<mat-toolbar color="primary">
-  <span>Kanban Dashboard</span>
-</mat-toolbar>
-<div class="kanban-board">
-  <div class="kanban-column" *ngFor="let status of statuses">
-    <h3>{{ status }}</h3>
-    <div *ngFor="let task of tasksByStatus[status]">
-      <mat-card class="kanban-task">
-        <mat-card-title>{{ task.title }}</mat-card-title>
-        <mat-card-content>
-          <p>{{ task.description }}</p>
-          <div class="labels">
-            <mat-chip-list>
-              <mat-chip *ngFor="let label of task.labels" [style.background]="label.color">{{ label.name }}</mat-chip>
-            </mat-chip-list>
-          </div>
-        </mat-card-content>
-        <mat-card-footer>
-          <span>Priority: {{ task.priority }}</span>
-        </mat-card-footer>
-      </mat-card>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard/tasks">Tasks</a>
+      <a mat-list-item routerLink="/dashboard/labels">Labels</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+    <mat-toolbar class="toolbar-toggle">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          matIconButton
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span>DevTasks</span>
+    </mat-toolbar>
+    <div class="content">
+      <router-outlet></router-outlet>
     </div>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

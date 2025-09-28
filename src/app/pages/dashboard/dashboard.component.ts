@@ -1,31 +1,37 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { CommonModule } from '@angular/common';
-import { TaskStatuses, TaskResponseDto } from '../../shared/models/task.model';
-import { KanbanService } from '../../shared/services/kanban.service';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, Observable, shareReplay } from 'rxjs';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   imports: [
-    MatCardModule,
-    MatChipsModule,
     MatToolbarModule,
-    CommonModule
-  ],
+    CommonModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    AsyncPipe,
+    RouterModule,
+    MatIconModule
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
-  statuses = Object.values(TaskStatuses);
-  tasksByStatus: { [key: string]: TaskResponseDto[] } = {};
+  private breakpointObserver = inject(BreakpointObserver);
 
-  constructor(private kanbanService: KanbanService) {
-    this.statuses.forEach(status => {
-      this.tasksByStatus[status] = this.kanbanService.getTasksByStatus(status as TaskStatuses);
-    });
-  }
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 }
