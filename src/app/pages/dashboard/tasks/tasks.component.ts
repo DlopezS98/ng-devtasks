@@ -7,22 +7,33 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { TaskResponseDto, TaskStatus } from '../../../shared/models/task.model';
 import { KanbanService } from '../../../shared/services/kanban.service';
 import { KanbanColumnComponent } from './components/kanban-column/kanban-column.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-tasks.component',
-  imports: [MatCardModule, MatChipsModule, MatListModule, MatToolbarModule, CommonModule, KanbanColumnComponent],
+  imports: [
+    MatCardModule,
+    MatChipsModule,
+    MatListModule,
+    MatToolbarModule,
+    CommonModule,
+    KanbanColumnComponent,
+    MatTabsModule,
+    MatIconModule
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true
+  standalone: true,
 })
 export class TasksComponent {
   statuses = Object.values(TaskStatus);
   tasksByStatus: { [key: string]: TaskResponseDto[] } = {};
 
   constructor(private kanbanService: KanbanService) {
-    this.statuses.forEach(status => {
+    this.statuses.forEach((status) => {
       this.tasksByStatus[status] = this.kanbanService.getTasksByStatus(status as TaskStatus);
     });
   }

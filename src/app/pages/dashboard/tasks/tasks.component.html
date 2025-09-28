@@ -1,10 +1,26 @@
-<mat-toolbar color="primary">
-  <span>Kanban Dashboard</span>
-</mat-toolbar>
-<div class="kanban-board">
-  @for (status of statuses; track status) {
-  <div class="kanban-column">
-    <app-kanban-column [status]="status"></app-kanban-column>
-  </div>
-  }
-</div>
+<mat-tab-group>
+  <mat-tab active>
+    <ng-template mat-tab-label>
+      <mat-icon>view_kanban</mat-icon>
+      <span>Kanban View</span>
+    </ng-template>
+    <ng-template matTabContent>
+      <div class="kanban-board">
+        @for (status of statuses; track status) {
+        <div class="kanban-column">
+          <app-kanban-column [status]="status"></app-kanban-column>
+        </div>
+        }
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>view_list</mat-icon>
+      <span>List View</span>
+    </ng-template>
+    <ng-template matTabContent>
+      
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
