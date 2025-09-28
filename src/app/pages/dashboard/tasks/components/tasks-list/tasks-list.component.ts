@@ -1,40 +1,64 @@
-import { CommonModule, DatePipe } from "@angular/common";
-import { AfterViewInit, Component, inject, signal, ViewChild } from "@angular/core";
-import { MatTableModule } from "@angular/material/table";
-import { Task } from "../../../../../shared/models/task.model";
-import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
-import { MatSort, MatSortModule } from "@angular/material/sort";
-import { merge, startWith, switchMap } from "rxjs";
-import { KanbanService } from "../../../../../shared/services/kanban.service";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { CommonModule, DatePipe } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Task } from '../../../../../shared/models/task.model';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { debounceTime, fromEvent, map, merge, startWith, switchMap } from 'rxjs';
+import { KanbanService } from '../../../../../shared/services/kanban.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInput, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss'],
-  imports: [CommonModule, MatTableModule, MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, DatePipe],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatPaginatorModule,
+    DatePipe,
+    MatFormFieldModule,
+    MatInputModule
+  ],
 })
-export class TasksListComponent implements AfterViewInit{
+export class TasksListComponent implements AfterViewInit {
   displayedColumns: string[] = ['title', 'status', 'createdAt', 'completedAt'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef<HTMLInputElement>;
+  // dataSource: MatTableDataSource<Task> = new MatTableDataSource<Task>([]);
   dataSource = signal<Task[]>([]);
   totalCount = signal(0);
   isLoadingResults = signal(true);
   tasksService = inject(KanbanService);
 
   ngAfterViewInit(): void {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page).pipe(
-      startWith({}),
-      switchMap(() => {
-        this.isLoadingResults.set(true);
-        return this.tasksService.searchTasks$();
-      })
-    ).subscribe((result) => {
-      this.dataSource.set(result.items);
-      this.totalCount.set(result.totalCount);
-      this.isLoadingResults.set(false);
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults.set(true);
+          return this.tasksService.searchTasks$();
+        })
+      )
+      .subscribe((result) => {
+        // this.dataSource = new MatTableDataSource<Task>(result.items);
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
+        this.dataSource.set(result.items);
+        this.totalCount.set(result.totalCount);
+        this.isLoadingResults.set(false);
+      });
+    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+      map(() => this.searchInput.nativeElement.value),
+      debounceTime(500),
+    ).subscribe((value) => {
+      console.log('Input value changed:', value);
     });
   }
 }
