@@ -1,4 +1,5 @@
 .tasks-list-container {
+  padding: 12px 0;
   position: relative;
 
   .loading-shade {
@@ -10,15 +11,16 @@
     background: rgba(0, 0, 0, 0.15);
     z-index: 1;
     display: flex;
+    flex-direction: column;
+    gap: 12px;
     align-items: center;
     justify-content: center;
   }
 
   .table-container {
     position: relative;
-    min-height: 200px;
-    max-height: 400px;
     overflow: auto;
+    height: calc(100vh - 230px);
 
     table {
       width: 100%;
