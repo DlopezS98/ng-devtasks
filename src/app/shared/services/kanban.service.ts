@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { TaskResponseDto, TaskStatus } from '../models/task.model';
 
 
@@ -137,5 +139,10 @@ export class KanbanService {
 
   getTasksByStatus(status: TaskStatus): TaskResponseDto[] {
     return this.tasks.filter(task => task.status === status);
+  }
+
+  fetchTasksByStatus$(status: TaskStatus): Observable<TaskResponseDto[]> {
+    // Simulate API delay
+    return of(this.getTasksByStatus(status)).pipe(delay(1200));
   }
 }

@@ -1,4 +1,5 @@
-import { Component, input, InputSignal, computed, effect, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, input, InputSignal, computed, effect, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { TaskResponseDto, TaskStatus } from '../../../../../shared/models/task.model';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,10 +8,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-kanban-column',
-  imports: [MatCardModule, MatIconModule, MatChipsModule, CommonModule, MatButtonModule, MatMenuModule],
+  imports: [MatCardModule, MatIconModule, MatChipsModule, CommonModule, MatButtonModule, MatMenuModule, MatProgressSpinnerModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './kanban-column.component.html',
   styleUrls: ['./kanban-column.component.scss'],
@@ -32,9 +34,21 @@ export class KanbanColumnComponent {
   icon = computed(() => this.iconsMap[this.status()]);
   title = computed(() => this.taskTitle[this.status()]);
   tasks: TaskResponseDto[] = [];
+  loading = signal(true);
+  private tasksSub?: Subscription;
+
   constructor(private kanbanService: KanbanService) {
     effect(() => {
-      this.tasks = this.kanbanService.getTasksByStatus(this.status());
+      this.tasksSub = this.kanbanService.fetchTasksByStatus$(this.status()).subscribe(tasks => {
+        this.tasks = tasks;
+        this.loading.set(false);
+      });
     });
+  }
+
+  ngOnDestroy() {
+    if (this.tasksSub) {
+      this.tasksSub.unsubscribe();
+    }
   }
 }

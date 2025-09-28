@@ -30,6 +30,15 @@
   padding: 8px;
   overflow-y: auto;
 
+  .kanban-spinner-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+
   .kanban-task {
     padding: 5px 12px;
     padding-bottom: 12px;

@@ -6,7 +6,12 @@
     <mat-card-title class="kanban-column-title">{{ title() }}</mat-card-title>
   </mat-card-header>
   <mat-card-content class="kanban-column-content">
-    @for (task of tasks; track task) {
+    @if (loading()) {
+    <div class="kanban-spinner-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Loading...</span>
+    </div>
+    } @else { @for (task of tasks; track task) {
     <mat-card class="kanban-task">
       <div class="kanban-task-header">
         <mat-card-subtitle>{{ task.title }}</mat-card-subtitle>
@@ -32,7 +37,7 @@
         </mat-chip-list>
       </mat-card-footer>
     </mat-card>
-    }
+    } }
   </mat-card-content>
   <mat-card-footer>
     <button mat-button color="primary" extended><mat-icon>add</mat-icon> Add Task</button>
