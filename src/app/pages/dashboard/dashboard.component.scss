@@ -18,6 +18,19 @@
     mat-nav-list a[mat-list-item]:not(:last-child) {
       margin-bottom: 8px;
     }
+
+    .bottom-section {
+      position: absolute;
+      bottom: 0;
+      width: 260px;
+      padding: 16px 0;
+      border-top: 1px solid #393e46;
+
+      button {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
   }
 
   .sidenav-content {

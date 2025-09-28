@@ -1,3 +1,4 @@
+import { AuthStore } from '../../shared/state/auth.state';
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -31,10 +32,12 @@ export class DashboardComponent {
   currentRoute = signal<string>('');
   breakpointObserver: BreakpointObserver;
   router: Router;
+  authStore: AuthStore;
 
   constructor() {
     this.breakpointObserver = inject(BreakpointObserver);
     this.router = inject(Router);
+    this.authStore = inject(AuthStore);
     this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
       .pipe(
         map(result => result.matches),
@@ -44,6 +47,10 @@ export class DashboardComponent {
     this.router.events.subscribe(() => {
       this.currentRoute.set(this.router.url);
     });
+  }
+
+  logout() {
+    this.authStore.logout();
   }
 // ...existing code...
 }
