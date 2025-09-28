@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,7 +6,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, Observable, shareReplay } from 'rxjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -27,11 +27,23 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
-  private breakpointObserver = inject(BreakpointObserver);
+  isHandset$: Observable<boolean>;
+  currentRoute = signal<string>('');
+  breakpointObserver: BreakpointObserver;
+  router: Router;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  constructor() {
+    this.breakpointObserver = inject(BreakpointObserver);
+    this.router = inject(Router);
+    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
+      .pipe(
+        map(result => result.matches),
+        shareReplay()
+      );
+    this.currentRoute.set(this.router.url);
+    this.router.events.subscribe(() => {
+      this.currentRoute.set(this.router.url);
+    });
+  }
+// ...existing code...
 }
