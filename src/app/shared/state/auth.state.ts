@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { TokenResponse } from '../models/token.model';
 import { User } from '../models/user.model';
 import { isTokenResponse } from '../utils/type-guards';
+import { Router } from '@angular/router';
 
 const AUTH_STORAGE_KEY = 'devtasks-auth';
 
@@ -15,7 +16,7 @@ export class AuthStore {
   public readonly isAuthenticated = computed(() => this.state().isAuthenticated);
   public readonly user = computed(() => this.state().user);
 
-  constructor(private readonly authService: AuthenticationService) {
+  constructor(private readonly authService: AuthenticationService, private readonly router: Router) {
     this.initialize();
   }
 
@@ -44,12 +45,15 @@ export class AuthStore {
   }
 
   public setAuthenticated(token: TokenResponse, user: User): void {
+    console.log('Setting authenticated user:', user);
     this.state.update((state) => ({ ...state, isAuthenticated: true, token, user }));
+    this.router.navigateByUrl('/dashboard');
   }
 
   public logout(): void {
     localStorage.removeItem(AUTH_STORAGE_KEY);
     this.state.set(initialAuthState);
+    this.router.navigateByUrl('/login');
   }
 
   private getTokenFromStorage(): TokenResponse | null {
