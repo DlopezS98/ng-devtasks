@@ -3,8 +3,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
-import { TaskStatuses, TaskResponseDto } from '../../models/task.model';
-import { KanbanService } from '../../services/kanban.service';
+import { TaskStatuses, TaskResponseDto } from '../../shared/models/task.model';
+import { KanbanService } from '../../shared/services/kanban.service';
 
 @Component({
   selector: 'app-dashboard',

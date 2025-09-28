@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TaskResponseDto, TaskStatuses, LabelResponseDto } from '../models/task.model';
+import { TaskResponseDto, TaskStatuses, LabelResponseDto } from '../shared/models/task.model';
 
 @Injectable({ providedIn: 'root' })
 export class KanbanService {
