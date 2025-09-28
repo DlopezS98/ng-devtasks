@@ -1,4 +1,4 @@
-export interface TaskResponseDto {
+export interface Task {
   id: string;
   title: string;
   description: string;
@@ -6,11 +6,11 @@ export interface TaskResponseDto {
   createdAt: Date;
   updatedAt: Date | null;
   completedAt: Date | null;
-  labels: LabelResponseDto[];
+  labels: Label[];
   priority: number;
 }
 
-export interface LabelResponseDto {
+export interface Label {
   id: string;
   name: string;
   color: string;
