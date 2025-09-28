@@ -1,5 +1,11 @@
 import { AuthStore } from '../../shared/state/auth.state';
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  signal,
+} from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,28 +28,23 @@ import { MatIconModule } from '@angular/material/icon';
     MatListModule,
     AsyncPipe,
     RouterModule,
-    MatIconModule
-],
+    MatIconModule,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-  isHandset$: Observable<boolean>;
-  currentRoute = signal<string>('');
-  breakpointObserver: BreakpointObserver;
-  router: Router;
-  authStore: AuthStore;
+  private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+  private router: Router = inject(Router);
+  private authStore: AuthStore = inject(AuthStore);
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map((result) => result.matches),
+    shareReplay()
+  );
+  currentRoute = signal<string>(this.router.url);
 
   constructor() {
-    this.breakpointObserver = inject(BreakpointObserver);
-    this.router = inject(Router);
-    this.authStore = inject(AuthStore);
-    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
-      .pipe(
-        map(result => result.matches),
-        shareReplay()
-      );
-    this.currentRoute.set(this.router.url);
     this.router.events.subscribe(() => {
       this.currentRoute.set(this.router.url);
     });
@@ -52,5 +53,4 @@ export class DashboardComponent {
   logout() {
     this.authStore.logout();
   }
-// ...existing code...
 }
