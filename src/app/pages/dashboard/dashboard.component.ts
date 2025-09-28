@@ -1,10 +1,10 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { KanbanService } from '../kanban.service';
-import { TaskResponseDto, TaskStatuses } from '../models/task.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
+import { TaskStatuses, TaskResponseDto } from '../../models/task.model';
+import { KanbanService } from '../../services/kanban.service';
 
 @Component({
   selector: 'app-dashboard',
