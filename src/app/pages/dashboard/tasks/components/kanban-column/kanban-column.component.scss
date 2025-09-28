@@ -1,3 +1,7 @@
+.inner-kanban-column {
+  max-height: calc(100vh - 185px);
+}
+
 .kanban-column-header {
   display: flex;
   align-items: center;
@@ -13,8 +17,12 @@
 }
 
 .kanban-column-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   background-color: #393e46;
   padding: 8px;
+  overflow-y: auto;
 }
 
 .kanban-task {
