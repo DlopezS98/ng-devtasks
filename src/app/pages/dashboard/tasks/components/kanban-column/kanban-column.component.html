@@ -1,0 +1,25 @@
+<mat-card class="kanban-column">
+  <mat-card-header>
+    <div mat-card-avatar><mat-icon>{{ icon() }}</mat-icon></div>
+    <mat-card-title>{{ status() }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- @for (task of tasksByStatus[status]; track task) {
+      <mat-card class="kanban-task">
+        <mat-card-title>{{ task.title }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+          <div class="labels">
+            <mat-chip-list>
+              @for (label of task.labels; track label) {
+                <mat-chip [style.background]="label.color">{{ label.name }}</mat-chip>
+              }
+            </mat-chip-list>
+          </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <span>Priority: {{ task.priority }}</span>
+        </mat-card-footer>
+      </mat-card>
+    } -->
+  </mat-card-content>
