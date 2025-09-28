@@ -2,7 +2,7 @@ export interface TaskResponseDto {
   id: string;
   title: string;
   description: string;
-  status: TaskStatuses;
+  status: TaskStatus;
   createdAt: Date;
   updatedAt: Date | null;
   completedAt: Date | null;
@@ -18,7 +18,7 @@ export interface LabelResponseDto {
   updatedAt: Date | null;
 }
 
-export enum TaskStatuses {
+export enum TaskStatus {
   Draft = "Draft",
   ToDo = "ToDo",
   InProgress = "InProgress",

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TaskResponseDto, TaskStatuses } from '../models/task.model';
+import { TaskResponseDto, TaskStatus } from '../models/task.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -9,7 +9,7 @@ export class KanbanService {
       id: '1',
       title: 'Setup project',
       description: 'Initialize Angular workspace and install dependencies.',
-      status: TaskStatuses.ToDo,
+      status: TaskStatus.ToDo,
       createdAt: new Date(),
       updatedAt: null,
       completedAt: null,
@@ -22,7 +22,7 @@ export class KanbanService {
       id: '2',
       title: 'Design UI',
       description: 'Create wireframes for Kanban board.',
-      status: TaskStatuses.InProgress,
+      status: TaskStatus.InProgress,
       createdAt: new Date(),
       updatedAt: null,
       completedAt: null,
@@ -35,7 +35,7 @@ export class KanbanService {
       id: '3',
       title: 'Implement board',
       description: 'Develop Kanban board using Angular Material.',
-      status: TaskStatuses.Draft,
+      status: TaskStatus.Draft,
       createdAt: new Date(),
       updatedAt: null,
       completedAt: null,
@@ -46,7 +46,7 @@ export class KanbanService {
       id: '4',
       title: 'Testing',
       description: 'Write unit tests for Kanban features.',
-      status: TaskStatuses.Done,
+      status: TaskStatus.Done,
       createdAt: new Date(),
       updatedAt: null,
       completedAt: new Date(),
@@ -61,7 +61,7 @@ export class KanbanService {
     return this.tasks;
   }
 
-  getTasksByStatus(status: TaskStatuses): TaskResponseDto[] {
+  getTasksByStatus(status: TaskStatus): TaskResponseDto[] {
     return this.tasks.filter(task => task.status === status);
   }
 }
