@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthStore } from '../../shared/state/auth.state';
@@ -9,6 +9,7 @@ import { AuthStore } from '../../shared/state/auth.state';
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
   public readonly form: FormGroup<{
@@ -36,7 +37,7 @@ export class LoginComponent {
     this.authStore
       .login(email!, password!)
       .then(() => {
-        this.router.navigateByUrl('/dashboard');
+        // this.router.navigateByUrl('/dashboard');
       })
       .catch((error) => {
         console.error('Login failed', error);
