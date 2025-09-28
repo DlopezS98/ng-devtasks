@@ -2,7 +2,8 @@
   height: 100%;
 
   .sidenav {
-    width: 250px;
+    padding: 0 12px;
+    width: 280px;
 
     .mat-toolbar {
       background: inherit;
@@ -13,13 +14,14 @@
         z-index: 1;
       }
     }
+
+    mat-nav-list a[mat-list-item]:not(:last-child) {
+      margin-bottom: 8px;
+    }
   }
 
   .sidenav-content {
     .toolbar-toggle {
-      position: sticky;
-      top: 0;
-      z-index: 2;
       background-color: #222831;
       border-bottom: 1px solid #393e46;
     }
@@ -28,6 +30,6 @@
   .content {
     padding: 16px 24px;
     background-color: #222831;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 96px);
   }
 }

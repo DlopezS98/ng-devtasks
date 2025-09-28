@@ -4,9 +4,16 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
+    <mat-divider></mat-divider>
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard/tasks">Tasks</a>
-      <a mat-list-item routerLink="/dashboard/labels">Labels</a>
+      <a mat-list-item routerLink="/dashboard/tasks" [activated]="true">
+        <mat-icon matListItemIcon>assignment</mat-icon>
+        <div matListItemTitle>Tasks</div>
+      </a>
+      <a mat-list-item routerLink="/dashboard/labels">
+        <mat-icon matListItemIcon>label</mat-icon>
+        <div matListItemTitle>Labels</div>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
