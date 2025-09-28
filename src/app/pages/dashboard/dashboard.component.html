@@ -7,7 +7,13 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar class="toolbar-user-info">
+      <mat-icon>account_circle</mat-icon>
+      <div class="user-details">
+        <span>{{ user()!.displayName }}</span>
+        <span class="user-email">{{ user()!.email }}</span>
+      </div>
+    </mat-toolbar>
     <mat-divider></mat-divider>
     <mat-nav-list>
       <a

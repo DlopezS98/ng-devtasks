@@ -2,6 +2,7 @@ import { AuthStore } from '../../shared/state/auth.state';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   signal,
@@ -37,6 +38,7 @@ export class DashboardComponent {
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
   private router: Router = inject(Router);
   private authStore: AuthStore = inject(AuthStore);
+  public user = computed(() => this.authStore.user());
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map((result) => result.matches),
