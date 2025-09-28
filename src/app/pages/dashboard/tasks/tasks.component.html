@@ -3,7 +3,8 @@
 </mat-toolbar>
 <div class="kanban-board">
   @for (status of statuses; track status) {
-    <div class="kanban-column">
+    <app-kanban-column [status]="status"></app-kanban-column>
+    <!-- <div class="kanban-column">
       <h3>{{ status }}</h3>
       @for (task of tasksByStatus[status]; track task) {
         <mat-card class="kanban-task">
@@ -21,8 +22,8 @@
           <mat-card-footer>
             <span>Priority: {{ task.priority }}</span>
           </mat-card-footer>
-        </mat-card>z
+        </mat-card>
       }
-    </div>
+    </div> -->
   }
 </div>
