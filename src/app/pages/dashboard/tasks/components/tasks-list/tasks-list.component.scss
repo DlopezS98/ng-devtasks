@@ -2,6 +2,21 @@
   padding: 12px 0;
   position: relative;
 
+  .table-toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+
+    .filter-input {
+      flex: 1;
+    }
+    
+    button {
+      margin-bottom: 20px;
+    }
+  }
+
   .loading-shade {
     position: absolute;
     top: 0;

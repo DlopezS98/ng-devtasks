@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { CardComponent } from '../card/card.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-tasks-list',
@@ -27,6 +28,7 @@ import { CardComponent } from '../card/card.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule
   ],
 })
 export class TasksListComponent implements AfterViewInit {
@@ -91,6 +93,19 @@ export class TasksListComponent implements AfterViewInit {
   deleteTask(task: Task) {
     this.tasksService.deleteTask$(task.id).subscribe(() => {
       this.paginator.page.emit(); // Trigger a refresh
+    });
+  }
+
+  openNewTaskDialog() {
+    const dialogRef = this.dialog.open(CardComponent, {
+      disableClose: true,
+      data: { title: '', description: '', status: 'Draft' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.paginator.page.emit(); // Trigger a refresh
+      }
     });
   }
 }
