@@ -34,3 +34,10 @@ export interface CreateTask {
 }
 
 export type UpdateTask = Partial<CreateTask> & { id: string };
+
+export interface CreateLabel {
+  name: string;
+  color?: string;
+}
+
+export type UpdateLabel = Partial<CreateLabel> & { id: string };
