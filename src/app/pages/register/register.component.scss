@@ -1,0 +1,125 @@
+
+
+.register-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0 2rem;
+
+	.register-card {
+		background: #393e46;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		width: 100%;
+		max-width: 400px;
+
+		.register-form-title {
+			font-size: 1.5rem;
+			margin-bottom: 1.5rem;
+			color: var(--mat-sys-on-surface);
+			text-align: center;
+		}
+
+		.register-form-desc {
+			color: #888;
+			margin-bottom: 1.5rem;
+			font-size: 1rem;
+			text-align: center;
+		}
+
+		.register-form-field {
+			width: 100%;
+			margin-bottom: 1rem;
+		}
+
+		.register-form-button {
+			width: 100%;
+			height: 48px;
+			font-size: 1.1rem;
+			margin-bottom: 16px;
+			background-color: var(--mat-sys-primary);
+			color: var(--mat-sys-on-primary);
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+
+			&:hover {
+				background-color: var(--mat-sys-primary-container);
+				color: var(--mat-sys-on-primary-container);
+			}
+		}
+
+		.register-signin-link {
+			text-align: center;
+			margin-top: 1rem;
+			color: var(--mat-sys-on-surface);
+			font-size: 0.9rem;
+
+			a {
+				color: var(--mat-sys-primary);
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	.register-banner {
+		background: linear-gradient(135deg, var(--mat-sys-primary) 0%, var(--mat-sys-primary-container) 100%);
+		border-radius: 16px;
+		margin: 32px;
+		min-width: 400px;
+		height: auto;
+		.register-banner-img {
+			height: calc(100vh - 350px);
+			max-height: 600px;
+			border-radius: 16px;
+			filter: brightness(70%);
+		}
+	}
+}
+
+// Responsive styles
+@media (max-width: 900px) {
+	.register-container {
+		flex-direction: column;
+		margin: 0 24px;
+		height: auto;
+
+		.register-card {
+			max-width: 100%;
+			margin: 2rem 0;
+		}
+
+		.register-banner {
+			margin: 0;
+			border-radius: 0;
+			min-width: unset;
+			height: 200px;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.register-container {
+		flex-direction: column;
+		margin: 0 24px;
+		height: auto;
+		height: calc(100vh - 100px);
+
+		.register-card {
+			max-width: 100%;
+			padding: 1rem;
+			margin: 1rem 0;
+		}
+
+		.register-banner {
+			display: none !important;
+		}
+	}
+}

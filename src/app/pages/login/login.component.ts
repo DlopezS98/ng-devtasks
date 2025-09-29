@@ -20,7 +20,6 @@ import { MatInputModule } from '@angular/material/input';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    NgOptimizedImage,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

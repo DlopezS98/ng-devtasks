@@ -1,1 +1,53 @@
-<p>register.component works!</p>
+<div class="register-container">
+  <div class="register-banner">
+    <img srcset="kanban-banner.jpg" alt="Register Banner" class="register-banner-img" />
+  </div>
+  <div class="register-card">
+    <div class="register-card__inner">
+      <h1 class="register-form-title">Create Account</h1>
+      <p class="register-form-desc">Sign up to get started</p>
+      <form [formGroup]="form" (ngSubmit)="register()">
+        <mat-form-field appearance="outline" class="register-form-field">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            required
+            autocomplete="email"
+            placeholder="Email"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="register-form-field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            required
+            autocomplete="new-password"
+            placeholder="Password"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="register-form-field">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmPassword"
+            required
+            autocomplete="new-password"
+            placeholder="Confirm Password"
+          />
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" class="register-form-button">
+          Sign Up
+        </button>
+      </form>
+      <div class="register-signin-link">
+        <span>Already have an account? </span>
+        <a routerLink="/login">Sign In</a>
+      </div>
+    </div>
+  </div>
+</div>
