@@ -9,7 +9,7 @@ export class LabelsService {
   private apiUrl = environment.apiUrl;
   constructor(private readonly http: HttpClient) {}
 
-  getLabels() {
+  getLabels$() {
     return this.http.get<Label[]>(`${this.apiUrl}/labels`);
   }
 }

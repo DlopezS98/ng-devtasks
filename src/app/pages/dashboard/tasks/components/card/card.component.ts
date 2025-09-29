@@ -40,7 +40,7 @@ export class CardComponent implements OnInit {
   labels = signal<Label[]>([]);
 
   constructor(private readonly labelsService: LabelsService) {
-    this.labelsService.getLabels().subscribe((labels) => {
+    this.labelsService.getLabels$().subscribe((labels) => {
       this.labels.set(labels);
     });
   }
