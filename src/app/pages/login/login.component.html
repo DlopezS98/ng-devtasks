@@ -1,7 +1,7 @@
 <div class="login-container">
   <div class="login-card">
     <h1 class="login-form-title">Hello, Welcome Back</h1>
-    <p>Hey, welcome back to your task management app</p>
+    <p [style.text-align]="'center'">Hey, welcome back to your task management app</p>
     <form [formGroup]="form" (ngSubmit)="login()">
       <mat-form-field appearance="outline" class="login-form-field">
         <mat-label>Email</mat-label>
