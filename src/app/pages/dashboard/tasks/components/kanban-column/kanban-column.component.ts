@@ -77,7 +77,7 @@ export class KanbanColumnComponent {
     const dialogRef = this.dialog.open(CardComponent, {
       // width: '400px',
       disableClose: true,
-      data: task,
+      data: {...task, status: this.status() }
     });
 
     dialogRef.afterClosed().subscribe(result => {
