@@ -1,14 +1,14 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Task } from '../../../../../shared/models/task.model';
+import { MatTableModule } from '@angular/material/table';
+import { Task } from '@shared/models/task.model';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { debounceTime, fromEvent, map, merge, startWith, switchMap } from 'rxjs';
-import { KanbanService } from '../../../../../shared/services/kanban.service';
+import { KanbanService } from '@shared/services/kanban.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-tasks-list',

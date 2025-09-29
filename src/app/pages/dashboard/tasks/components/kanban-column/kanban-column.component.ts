@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
-import { Task, TaskStatus } from '../../../../../shared/models/task.model';
+import { Task, TaskStatus } from '@shared/models/task.model';
 import { MatIconModule } from '@angular/material/icon';
-import { KanbanService } from '../../../../../shared/services/kanban.service';
+import { KanbanService } from '@shared/services/kanban.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

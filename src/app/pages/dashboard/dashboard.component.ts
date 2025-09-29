@@ -1,4 +1,4 @@
-import { AuthStore } from '../../shared/state/auth.state';
+import { AuthStore } from '@shared/state/auth.state';
 import {
   ChangeDetectionStrategy,
   Component,

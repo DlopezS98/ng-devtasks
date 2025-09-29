@@ -13,8 +13,8 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Label, Task } from '../../../../../shared/models/task.model';
-import { LabelsService } from '../../../../../shared/services/labels.service';
+import { Label, Task } from '@shared/models/task.model';
+import { LabelsService } from '@shared/services/labels.service';
 
 @Component({
   selector: 'app-card.component',
