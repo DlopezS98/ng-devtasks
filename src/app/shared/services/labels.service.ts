@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { delay, of } from "rxjs";
+import { Label } from "../models/task.model";
 
 @Injectable({ providedIn: 'root' })
 export class LabelsService {
-  private labels = [
+  private labels: Label[] = [
     { id: 'l1', name: 'Setup', color: '#2196f3', createdAt: new Date(), updatedAt: null },
     { id: 'l2', name: 'Design', color: '#e91e63', createdAt: new Date(), updatedAt: null },
     { id: 'l3', name: 'Testing', color: '#4caf50', createdAt: new Date(), updatedAt: null },
