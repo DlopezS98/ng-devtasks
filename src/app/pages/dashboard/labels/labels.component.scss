@@ -1,0 +1,36 @@
+// Label list row styling
+.label-row {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.label-color {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	margin-right: 8px;
+	display: inline-block;
+}
+
+.label-name {
+	flex: 1;
+}
+
+.label-date {
+	margin-right: 16px;
+	color: #888;
+	font-size: 12px;
+}
+
+.label-form {
+	margin-top: 24px;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.form-actions {
+	margin-top: 16px;
+}
