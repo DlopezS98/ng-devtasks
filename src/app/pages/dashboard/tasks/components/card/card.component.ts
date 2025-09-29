@@ -63,12 +63,10 @@ export class CardComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       const value = this.form.value;
-      console.log(value);
-      this.dialog.close(value);
       if (this.isEditing() && this.data?.id) {
-        this.tasksService.updateTask$(this.data.id, value).subscribe();
+        this.tasksService.updateTask$(this.data.id, value).subscribe(() => this.dialog.close(true));
       } else {
-        this.tasksService.createTask$(value).subscribe();
+        this.tasksService.createTask$(value).subscribe(() => this.dialog.close(true));
       }
     }
   }
