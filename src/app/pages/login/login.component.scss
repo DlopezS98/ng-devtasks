@@ -67,8 +67,49 @@
 
     .login-banner-img {
       height: calc(100vh - 350px);
+      max-height: 600px;
       border-radius: 16px;
       filter: brightness(70%);
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 900px) {
+  .login-container {
+    flex-direction: column;
+    margin: 0 24px;
+    height: auto;
+
+    .login-card {
+      max-width: 100%;
+      margin: 2rem 0;
+    }
+
+    .login-banner {
+      margin: 0;
+      border-radius: 0;
+      min-width: unset;
+      height: 200px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .login-container {
+    flex-direction: column;
+    margin: 0 24px;
+    height: auto;
+    height: calc(100vh - 100px);
+
+    .login-card {
+      max-width: 100%;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .login-banner {
+      display: none !important;
     }
   }
 }
