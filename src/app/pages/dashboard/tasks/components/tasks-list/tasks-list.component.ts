@@ -9,6 +9,9 @@ import { TasksService } from '@app/shared/services/tasks.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-tasks-list',
@@ -23,10 +26,11 @@ import { MatInputModule } from '@angular/material/input';
     DatePipe,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
   ],
 })
 export class TasksListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['title', 'status', 'createdAt', 'completedAt'];
+  displayedColumns: string[] = ['title', 'status', 'createdAt', 'completedAt', 'actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef<HTMLInputElement>;
@@ -34,7 +38,8 @@ export class TasksListComponent implements AfterViewInit {
   dataSource = signal<Task[]>([]);
   totalCount = signal(0);
   isLoadingResults = signal(true);
-  tasksService = inject(TasksService);
+  readonly tasksService = inject(TasksService);
+  readonly dialog: MatDialog = inject(MatDialog);
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
@@ -69,5 +74,23 @@ export class TasksListComponent implements AfterViewInit {
         this.totalCount.set(result.totalCount);
         this.isLoadingResults.set(false);
       });
+  }
+  editTask(task: Task) {
+    const dialogRef = this.dialog.open(CardComponent, {
+      disableClose: true,
+      data: { ...task },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.paginator.page.emit(); // Trigger a refresh
+      }
+    });
+  }
+
+  deleteTask(task: Task) {
+    this.tasksService.deleteTask$(task.id).subscribe(() => {
+      this.paginator.page.emit(); // Trigger a refresh
+    });
   }
 }
