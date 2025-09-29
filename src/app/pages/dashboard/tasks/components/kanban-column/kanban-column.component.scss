@@ -7,13 +7,29 @@
   align-items: center;
   justify-content: start;
   padding: none;
-  flex-direction: row-reverse;
   gap: 12px;
   padding: 12px;
 
+  .column-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+  }
+
   .kanban-column-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 24px;
     color: #00adb5;
+
+    .task-count {
+      font-size: 14px;
+      margin-left: 6px;
+      color: #eeeeee;
+      font-weight: 500;
+    }
   }
 
   .kanban-column-title {

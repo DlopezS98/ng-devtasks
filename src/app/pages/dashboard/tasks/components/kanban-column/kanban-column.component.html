@@ -1,9 +1,15 @@
 <mat-card class="inner-kanban-column">
   <mat-card-header class="kanban-column-header">
-    <div class="kanban-column-icon">
+    <div class="column-header-left">
+      <div class="kanban-column-icon">
       <mat-icon>{{ icon() }}</mat-icon>
+      <span class="task-count">{{ tasks.length }}</span>
     </div>
     <mat-card-title class="kanban-column-title">{{ title() }}</mat-card-title>
+    </div>
+    <button mat-icon-button (click)="fetchTasksByStatus()" [disabled]="loading()">
+      <mat-icon>autorenew</mat-icon>
+    </button>
   </mat-card-header>
   <mat-card-content class="kanban-column-content">
     @if (loading()) {

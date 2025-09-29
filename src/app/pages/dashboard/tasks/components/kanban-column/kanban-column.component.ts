@@ -47,7 +47,7 @@ export class KanbanColumnComponent {
   private readonly iconsMap = {
     [TaskStatus.Draft]: 'drafts',
     [TaskStatus.ToDo]: 'list_alt',
-    [TaskStatus.InProgress]: 'autorenew',
+    [TaskStatus.InProgress]: 'av_timer',
     [TaskStatus.Done]: 'check_circle',
   };
   icon = computed(() => this.iconsMap[this.status()]);
@@ -70,7 +70,7 @@ export class KanbanColumnComponent {
     }
   }
 
-  private fetchTasksByStatus() {
+  fetchTasksByStatus() {
     this.loading.set(true);
     this.tasksSub = this.tasksService.getTasksByStatus$(this.status()).subscribe({
       next: (tasks) => {
