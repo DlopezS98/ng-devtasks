@@ -4,10 +4,8 @@ import { AuthState, initialAuthState } from '../models/auth.model';
 import { firstValueFrom } from 'rxjs';
 import { TokenResponse } from '../models/token.model';
 import { User } from '../models/user.model';
-import { isTokenResponse } from '../utils/type-guards';
 import { Router } from '@angular/router';
-
-const AUTH_STORAGE_KEY = 'devtasks-auth';
+import { clearTokenFromStorage, getTokenFromStorage, saveTokenToStorage } from '../utils/token.utils';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStore {
@@ -16,16 +14,19 @@ export class AuthStore {
   public readonly isAuthenticated = computed(() => this.state().isAuthenticated);
   public readonly user = computed(() => this.state().user);
 
-    public getToken(): TokenResponse | null {
-      return this.state().token ?? null;
-    }
+  public getToken(): TokenResponse | null {
+    return this.state().token ?? null;
+  }
 
-  constructor(private readonly authService: AuthenticationService, private readonly router: Router) {
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly router: Router
+  ) {
     this.initialize();
   }
 
   private async initialize() {
-    const token = this.getTokenFromStorage();
+    const token = getTokenFromStorage();
     if (!token) return;
 
     try {
@@ -34,6 +35,7 @@ export class AuthStore {
 
       this.setAuthenticated(token, user);
     } catch (error) {
+      console.error('AuthStore: Token validation failed', error);
       this.logout();
     }
   }
@@ -43,8 +45,7 @@ export class AuthStore {
     if (!result) throw new Error('Invalid login');
 
     const { token, user } = result;
-    const stringifiedToken = JSON.stringify(token);
-    localStorage.setItem(AUTH_STORAGE_KEY, stringifiedToken);
+    saveTokenToStorage(token);
     this.setAuthenticated(token, user);
   }
 
@@ -55,27 +56,8 @@ export class AuthStore {
   }
 
   public logout(): void {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
+    clearTokenFromStorage();
     this.state.set(initialAuthState);
     this.router.navigateByUrl('/login');
-  }
-
-  private getTokenFromStorage(): TokenResponse | null {
-    const tokenString = localStorage.getItem(AUTH_STORAGE_KEY);
-    if (!tokenString) return null;
-
-    try {
-      const parsedToken = JSON.parse(tokenString) as unknown;
-      if (!isTokenResponse(parsedToken)) return null;
-
-      return {
-        accessToken: String(parsedToken.accessToken),
-        refreshToken: String(parsedToken.refreshToken),
-        tokenExpiresAt: new Date(parsedToken.tokenExpiresAt),
-        refreshTokenExpiresAt: new Date(parsedToken.refreshTokenExpiresAt),
-      };
-    } catch {
-      return null;
-    }
   }
 }
