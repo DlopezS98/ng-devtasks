@@ -5,7 +5,7 @@ import { Task } from '@shared/models/task.model';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { debounceTime, fromEvent, map, merge, startWith, switchMap } from 'rxjs';
-import { KanbanService } from '@shared/services/kanban.service';
+import { TasksService } from '@app/shared/services/tasks.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,7 +34,7 @@ export class TasksListComponent implements AfterViewInit {
   dataSource = signal<Task[]>([]);
   totalCount = signal(0);
   isLoadingResults = signal(true);
-  tasksService = inject(KanbanService);
+  tasksService = inject(TasksService);
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));

@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { Task, TaskStatus } from '@shared/models/task.model';
 import { MatIconModule } from '@angular/material/icon';
-import { KanbanService } from '@shared/services/kanban.service';
+import { TasksService } from '@app/shared/services/tasks.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -57,7 +57,7 @@ export class KanbanColumnComponent {
   loading = signal(true);
   private tasksSub?: Subscription;
 
-  constructor(private kanbanService: KanbanService, private readonly dialog: MatDialog) {
+  constructor(private kanbanService: TasksService, private readonly dialog: MatDialog) {
     effect(() => {
       this.tasksSub = this.kanbanService.getTasksByStatus$(this.status()).subscribe((tasks) => {
         this.tasks = tasks;

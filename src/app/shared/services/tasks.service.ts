@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, delay, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Task, TaskStatus } from '../models/task.model';
 import { PagedResult } from '../models/query.model';
 import { environment } from '@env/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
-export class KanbanService {
+export class TasksService {
   private apiUrl = environment.apiUrl;
   constructor(private readonly http: HttpClient) {}
 

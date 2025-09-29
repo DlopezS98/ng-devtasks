@@ -5,7 +5,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Task, TaskStatus } from '@shared/models/task.model';
-import { KanbanService } from '@shared/services/kanban.service';
+import { TasksService } from '@app/shared/services/tasks.service';
 import { KanbanColumnComponent } from './components/kanban-column/kanban-column.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
