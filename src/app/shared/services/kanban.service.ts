@@ -131,6 +131,28 @@ export class KanbanService {
       completedAt: null,
       labels: [],
       priority: 10
+    },
+    {
+      id: '10',
+      title: 'Feature Expansion',
+      description: 'Plan and implement new features based on user requests.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [],
+      priority: 10
+    },
+    {
+      id: '10',
+      title: 'Feature Expansion',
+      description: 'Plan and implement new features based on user requests.',
+      status: TaskStatus.Draft,
+      createdAt: new Date(),
+      updatedAt: null,
+      completedAt: null,
+      labels: [],
+      priority: 10
     }
   ];
 

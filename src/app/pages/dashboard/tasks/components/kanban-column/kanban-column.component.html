@@ -19,7 +19,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #taskMenu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="openTaskDialog(task)">
             <mat-icon>edit</mat-icon>
             <span>Edit Task</span>
           </button>
@@ -40,6 +40,6 @@
     } }
   </mat-card-content>
   <mat-card-footer>
-    <button mat-button color="primary" extended><mat-icon>add</mat-icon> Add Task</button>
+    <button mat-button color="primary" extended (click)="openTaskDialog(null)"><mat-icon>add</mat-icon> Add Task</button>
   </mat-card-footer>
 </mat-card>
