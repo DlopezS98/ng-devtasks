@@ -18,9 +18,9 @@ export class TasksService {
     page: number,
     pageSize: number
   ): Observable<PagedResult<Task>> {
-    const url = `${this.apiUrl}/tasks?sort=${sort}:${sortOrder}&page=${page}&pageSize=${pageSize}`;
-    if (!filter) {
-      url.concat(`&filter=title:eq:${filter}`);
+    let url = `${this.apiUrl}/tasks?sort=${sort}:${sortOrder}&page=${page}&pageSize=${pageSize}`;
+    if (filter) {
+      url = url.concat(`&filter=title:eq:${filter}`);
     }
 
     return this.http.get<PagedResult<Task>>(url);

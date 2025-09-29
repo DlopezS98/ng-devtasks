@@ -38,7 +38,11 @@ export class TasksListComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    merge(this.sort.sortChange, this.paginator.page)
+    const search$ = fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+      map(() => this.searchInput.nativeElement.value),
+      debounceTime(500)
+    );
+    merge(this.sort.sortChange, this.paginator.page, search$)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -64,14 +68,6 @@ export class TasksListComponent implements AfterViewInit {
         this.dataSource.set(result.items);
         this.totalCount.set(result.totalCount);
         this.isLoadingResults.set(false);
-      });
-    fromEvent(this.searchInput.nativeElement, 'keyup')
-      .pipe(
-        map(() => this.searchInput.nativeElement.value),
-        debounceTime(500)
-      )
-      .subscribe((value) => {
-        console.log('Input value changed:', value);
       });
   }
 }
