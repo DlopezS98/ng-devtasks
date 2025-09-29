@@ -9,10 +9,11 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { TasksService } from '@app/shared/services/tasks.service';
 import { Label, Task } from '@shared/models/task.model';
 import { LabelsService } from '@shared/services/labels.service';
 
@@ -39,7 +40,11 @@ export class CardComponent implements OnInit {
   fb = inject(FormBuilder);
   labels = signal<Label[]>([]);
 
-  constructor(private readonly labelsService: LabelsService) {
+  constructor(
+    private readonly dialog: MatDialogRef<CardComponent>,
+    private readonly labelsService: LabelsService,
+    private readonly tasksService: TasksService
+  ) {
     this.labelsService.getLabels$().subscribe((labels) => {
       this.labels.set(labels);
     });
@@ -58,8 +63,13 @@ export class CardComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       const value = this.form.value;
-      // TODO: handle create or update logic
-      console.log('Form value:', value);
+      console.log(value);
+      this.dialog.close(value);
+      if (this.isEditing() && this.data?.id) {
+        this.tasksService.updateTask$(this.data.id, value).subscribe();
+      } else {
+        this.tasksService.createTask$(value).subscribe();
+      }
     }
   }
 }
