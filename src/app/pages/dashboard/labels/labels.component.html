@@ -18,7 +18,9 @@
             <button mat-button color="warn" (click)="delete(label)">Delete</button>
           </div>
         </mat-list-item>
-        }
+        @if (label !== labels()[labels().length - 1]) {
+        <mat-divider></mat-divider>
+        } }
       </mat-list>
     </mat-card-content>
   </mat-card>

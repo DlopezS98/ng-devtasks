@@ -5,7 +5,11 @@
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" required placeholder="Label name" title="Label name" />
     </mat-form-field>
-  <mat-checkbox *ngIf="!isEdit" [checked]="randomColor" (change)="randomColor = $event.checked">Random color</mat-checkbox>
+    @if(!isEdit) {
+    <mat-checkbox [style.marginBottom]="'16px'" [checked]="randomColor" (change)="randomColor = $event.checked">
+      Random color
+    </mat-checkbox>
+    }
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Color</mat-label>
       <input
@@ -14,7 +18,7 @@
         type="color"
         placeholder="Label color"
         title="Label color"
-        [disabled]="randomColor && !isEdit"
+        [disabled]="randomColor"
       />
     </mat-form-field>
   </mat-dialog-content>
