@@ -16,6 +16,10 @@ export class AuthStore {
   public readonly isAuthenticated = computed(() => this.state().isAuthenticated);
   public readonly user = computed(() => this.state().user);
 
+    public getToken(): TokenResponse | null {
+      return this.state().token ?? null;
+    }
+
   constructor(private readonly authService: AuthenticationService, private readonly router: Router) {
     this.initialize();
   }
