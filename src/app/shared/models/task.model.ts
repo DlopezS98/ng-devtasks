@@ -24,3 +24,13 @@ export enum TaskStatus {
   InProgress = "InProgress",
   Done = "Done",
 }
+
+export interface CreateTask {
+  title: string;
+  status: string;
+  description: string;
+  priority: number;
+  labelIds: string[];
+}
+
+export type UpdateTask = Partial<CreateTask> & { id: string };
