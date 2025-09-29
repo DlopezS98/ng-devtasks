@@ -1,18 +1,15 @@
 import { Injectable } from "@angular/core";
 import { delay, of } from "rxjs";
 import { Label } from "../models/task.model";
+import { environment } from "@env/environment";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 export class LabelsService {
-  private labels: Label[] = [
-    { id: 'l1', name: 'Setup', color: '#2196f3', createdAt: new Date(), updatedAt: null },
-    { id: 'l2', name: 'Design', color: '#e91e63', createdAt: new Date(), updatedAt: null },
-    { id: 'l3', name: 'Testing', color: '#4caf50', createdAt: new Date(), updatedAt: null },
-    { id: 'l4', name: 'Bug', color: '#f44336', createdAt: new Date(), updatedAt: null },
-    { id: 'l5', name: 'Feature', color: '#ff9800', createdAt: new Date(), updatedAt: null },
-  ];
+  private apiUrl = environment.apiUrl;
+  constructor(private readonly http: HttpClient) {}
 
   getLabels() {
-    return of(this.labels).pipe(delay(500)); // Simulate async operation
+    return this.http.get<Label[]>(`${this.apiUrl}/labels`);
   }
 }
