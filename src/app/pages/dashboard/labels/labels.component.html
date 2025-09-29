@@ -1,40 +1,25 @@
 <section>
-  <h2>Labels</h2>
-  <mat-list>
-    @for (label of labels(); track label) {
-    <mat-list-item>
-      <div class="label-row">
-        <span class="label-color" [style.background]="label.color"></span>
-        <span class="label-name">{{ label.name }}</span>
-        <span class="label-date">{{ label.createdAt | date : 'short' }}</span>
-        <button mat-button color="primary" (click)="edit(label)">Edit</button>
-        <button mat-button color="warn" (click)="delete(label)">Delete</button>
-      </div>
-    </mat-list-item>
-    }
-  </mat-list>
-
-  <form [formGroup]="form" (ngSubmit)="submit()" class="label-form">
-    <h3>{{ editingLabel ? 'Edit Label' : 'Create Label' }}</h3>
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" required placeholder="Label name" title="Label name" />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Color</mat-label>
-      <input
-        matInput
-        formControlName="color"
-        type="color"
-        placeholder="Label color"
-        title="Label color"
-      />
-    </mat-form-field>
-    <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit">
-        {{ editingLabel ? 'Update' : 'Create' }}
-      </button>
-      <button *ngIf="editingLabel" mat-button type="button" (click)="cancelEdit()">Cancel</button>
-    </div>
-  </form>
+  <div class="form-title-section">
+    <h2>Labels</h2>
+    <button mat-raised-button color="primary" type="button" (click)="openLabelDialog()">
+      Create Label
+    </button>
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <mat-list>
+        @for (label of labels(); track label) {
+        <mat-list-item>
+          <div class="label-row">
+            <span class="label-color" [style.background]="label.color"></span>
+            <span class="label-name">{{ label.name }}</span>
+            <span class="label-date">{{ label.createdAt | date : 'short' }}</span>
+            <button mat-button color="primary" (click)="edit(label)">Edit</button>
+            <button mat-button color="warn" (click)="delete(label)">Delete</button>
+          </div>
+        </mat-list-item>
+        }
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </section>

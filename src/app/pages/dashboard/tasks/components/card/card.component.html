@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="submit()" class="task-form">
   <h2 mat-dialog-title>{{ title() }}</h2>
-  <mat-dialog-content class="task-form-content">
+  <mat-dialog-content [style.paddingTop]="'16px'" class="task-form-content">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Title</mat-label>
       <input matInput formControlName="title" required placeholder="Task Title" />

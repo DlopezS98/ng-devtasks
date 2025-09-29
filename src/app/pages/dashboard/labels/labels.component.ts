@@ -7,7 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LabelsService } from '../../../shared/services/labels.service';
 import { Label, CreateLabel, UpdateLabel } from '../../../shared/models/task.model';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { LabelFormDialogComponent } from './components/label-form-dialog.component';
 import { tap } from 'rxjs';
+import { MatCard, MatCardModule } from "@angular/material/card";
+import { MatCardContent } from "../../../../../node_modules/@angular/material/card/index";
 
 @Component({
   selector: 'app-labels.component',
@@ -18,14 +22,17 @@ import { tap } from 'rxjs';
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
-  ],
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule
+],
   templateUrl: './labels.component.html',
   styleUrl: './labels.component.scss'
 })
 export class LabelsComponent {
   private labelsService = inject(LabelsService);
   private fb = inject(FormBuilder);
+  private dialog = inject(MatDialog);
 
   labels = signal<Label[]>([]);
   form: FormGroup;
@@ -45,36 +52,29 @@ export class LabelsComponent {
     });
   }
 
-  submit() {
-    if (this.editingLabel) {
-      const update: UpdateLabel = {
-        id: this.editingLabel.id,
-        ...this.form.value
-      };
-      this.labelsService.updateLabel$(update).pipe(
-        tap(() => {
-          this.editingLabel = null;
-          this.form.reset();
-          this.loadLabels();
-        })
-      ).subscribe();
-    } else {
-      const create: CreateLabel = this.form.value;
-      this.labelsService.createLabel$(create).pipe(
-        tap(() => {
-          this.form.reset();
-          this.loadLabels();
-        })
-      ).subscribe();
-    }
+  openLabelDialog(label?: Label) {
+    const dialogRef = this.dialog.open(LabelFormDialogComponent, {
+      data: { label },
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe((result: CreateLabel | undefined) => {
+      if (result) {
+        if (label) {
+          const update: UpdateLabel = { id: label.id, ...result };
+          this.labelsService.updateLabel$(update).pipe(
+            tap(() => this.loadLabels())
+          ).subscribe();
+        } else {
+          this.labelsService.createLabel$(result).pipe(
+            tap(() => this.loadLabels())
+          ).subscribe();
+        }
+      }
+    });
   }
 
   edit(label: Label) {
-    this.editingLabel = label;
-    this.form.patchValue({
-      name: label.name,
-      color: label.color || ''
-    });
+    this.openLabelDialog(label);
   }
 
   delete(label: Label) {
@@ -83,8 +83,5 @@ export class LabelsComponent {
     ).subscribe();
   }
 
-  cancelEdit() {
-    this.editingLabel = null;
-    this.form.reset();
-  }
+  cancelEdit() {}
 }
