@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Task, TaskStatus } from '../models/task.model';
+import { CreateTask, Task, TaskStatus, UpdateTask } from '../models/task.model';
 import { PagedResult } from '../models/query.model';
 import { environment } from '@env/environment';
 import { HttpClient } from '@angular/common/http';
@@ -34,5 +34,15 @@ export class TasksService {
         return of([]);
       })
     );
+  }
+
+  createTask$(task: CreateTask): Observable<Task> {
+    const url = `${this.apiUrl}/tasks`;
+    return this.http.post<Task>(url, task);
+  }
+
+  updateTask$(taskId: string, updates: Partial<UpdateTask>): Observable<Task> {
+    const url = `${this.apiUrl}/tasks/${taskId}`;
+    return this.http.put<Task>(url, updates);
   }
 }
