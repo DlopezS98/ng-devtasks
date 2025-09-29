@@ -77,7 +77,7 @@ export class LabelsComponent {
     this.openLabelDialog(label);
   }
 
-  delete(label: Label) {
+  deleteLabel(label: Label) {
     this.labelsService.deleteLabel$(label.id).pipe(
       tap(() => this.loadLabels())
     ).subscribe();

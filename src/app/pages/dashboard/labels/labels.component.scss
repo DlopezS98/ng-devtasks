@@ -13,6 +13,51 @@
 	display: inline-block;
 }
 
+.label-row, .label-list-header {
+	display: grid;
+	grid-template-columns: 32px 1fr 180px 160px;
+	align-items: center;
+	width: 100%;
+	min-height: 48px;
+}
+
+.label-list-header {
+	background: transparent;
+	color: #bdbdbd;
+	font-size: 16px;
+	font-weight: 600;
+	border-bottom: 1px solid #333;
+	margin-bottom: 4px;
+}
+
+.label-color {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin: 0 auto;
+	display: block;
+}
+
+.label-name {
+	font-size: 20px;
+	font-weight: 500;
+	color: #fff;
+	padding-left: 8px;
+}
+
+.label-date {
+	color: #bdbdbd;
+	font-size: 14px;
+	text-align: left;
+	padding-right: 16px;
+}
+
+.label-actions {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-start;
+}
+
 .label-name {
 	flex: 1;
 }
