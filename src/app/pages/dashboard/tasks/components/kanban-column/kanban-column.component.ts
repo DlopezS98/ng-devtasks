@@ -30,14 +30,13 @@ import { CardComponent } from '../card/card.component';
     MatButtonModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './kanban-column.component.html',
   styleUrls: ['./kanban-column.component.scss'],
 })
 export class KanbanColumnComponent {
-  currentTask = signal<Task | null>(null);
   status: InputSignal<TaskStatus> = input.required();
   private readonly taskTitle = {
     [TaskStatus.Draft]: 'Drafts',
@@ -56,36 +55,52 @@ export class KanbanColumnComponent {
   tasks: Task[] = [];
   loading = signal(true);
   private tasksSub?: Subscription;
+  private dialogSub?: Subscription;
 
-  constructor(private kanbanService: TasksService, private readonly dialog: MatDialog) {
-    effect(() => {
-      this.tasksSub = this.kanbanService.getTasksByStatus$(this.status()).subscribe((tasks) => {
-        this.tasks = tasks;
-        this.loading.set(false);
-      });
-    });
+  constructor(private tasksService: TasksService, private readonly dialog: MatDialog) {
+    effect(() => this.fetchTasksByStatus());
   }
 
   ngOnDestroy() {
     if (this.tasksSub) {
       this.tasksSub.unsubscribe();
     }
+    if (this.dialogSub) {
+      this.dialogSub.unsubscribe();
+    }
+  }
+
+  private fetchTasksByStatus() {
+    this.loading.set(true);
+    this.tasksSub = this.tasksService.getTasksByStatus$(this.status()).subscribe({
+      next: (tasks) => {
+        this.tasks = tasks;
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false),
+    });
   }
 
   openTaskDialog(task: Task | null) {
-    this.currentTask.set(task);
     const dialogRef = this.dialog.open(CardComponent, {
       // width: '400px',
       disableClose: true,
-      data: {...task, status: this.status() }
+      data: { ...task, status: this.status() },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    if (this.dialogSub) {
+      this.dialogSub.unsubscribe();
+    }
+    this.dialogSub = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Handle the result from the dialog (e.g., save changes)
-        console.log('Dialog result:', result);
+        this.fetchTasksByStatus();
       }
-      this.currentTask.set(null);
+    });
+  }
+
+  deleteTask(taskId: string) {
+    this.tasksService.deleteTask$(taskId).subscribe(() => {
+      this.fetchTasksByStatus();
     });
   }
 }
