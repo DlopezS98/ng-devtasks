@@ -32,11 +32,6 @@ import { TasksListComponent } from './components/tasks-list/tasks-list.component
 })
 export class TasksComponent {
   statuses = Object.values(TaskStatus);
-  tasksByStatus: { [key: string]: Task[] } = {};
-
-  constructor(private kanbanService: KanbanService) {
-    this.statuses.forEach((status) => {
-      this.tasksByStatus[status] = this.kanbanService.getTasksByStatus(status as TaskStatus);
-    });
+  constructor() {
   }
 }

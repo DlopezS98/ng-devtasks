@@ -22,7 +22,7 @@ import { MatInputModule } from '@angular/material/input';
     MatPaginatorModule,
     DatePipe,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
 })
 export class TasksListComponent implements AfterViewInit {
@@ -43,7 +43,18 @@ export class TasksListComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults.set(true);
-          return this.tasksService.searchTasks$();
+          const filter = this.searchInput.nativeElement.value;
+          const sort = {
+            sortBy: this.sort.active || 'createdAt',
+            sortDirection: this.sort.direction || 'desc',
+          };
+          return this.tasksService.searchTasks$(
+            filter,
+            sort.sortBy,
+            sort.sortDirection,
+            this.paginator.pageIndex + 1,
+            this.paginator.pageSize || 10
+          );
         })
       )
       .subscribe((result) => {
@@ -54,11 +65,13 @@ export class TasksListComponent implements AfterViewInit {
         this.totalCount.set(result.totalCount);
         this.isLoadingResults.set(false);
       });
-    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-      map(() => this.searchInput.nativeElement.value),
-      debounceTime(500),
-    ).subscribe((value) => {
-      console.log('Input value changed:', value);
-    });
+    fromEvent(this.searchInput.nativeElement, 'keyup')
+      .pipe(
+        map(() => this.searchInput.nativeElement.value),
+        debounceTime(500)
+      )
+      .subscribe((value) => {
+        console.log('Input value changed:', value);
+      });
   }
 }

@@ -59,7 +59,7 @@ export class KanbanColumnComponent {
 
   constructor(private kanbanService: KanbanService, private readonly dialog: MatDialog) {
     effect(() => {
-      this.tasksSub = this.kanbanService.fetchTasksByStatus$(this.status()).subscribe((tasks) => {
+      this.tasksSub = this.kanbanService.getTasksByStatus$(this.status()).subscribe((tasks) => {
         this.tasks = tasks;
         this.loading.set(false);
       });
