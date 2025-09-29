@@ -1,0 +1,9 @@
+.task-form {
+  min-width: 500px;
+
+  .task-form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
