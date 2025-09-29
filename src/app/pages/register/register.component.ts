@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
+import { passwordMatchValidator } from './validators/password-match.validator';
 
 @Component({
   selector: 'app-register.component',
@@ -15,14 +16,17 @@ export class RegisterComponent {
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
-    });
+    this.form = this.fb.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required, passwordMatchValidator]],
+      }
+    );
   }
 
   register() {
+    console.log(this.form.get('confirmPassword')?.errors);
     if (this.form.valid) {
       // Registration logic here
       const { email, password, confirmPassword } = this.form.value;

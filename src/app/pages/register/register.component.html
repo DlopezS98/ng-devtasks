@@ -17,6 +17,11 @@
             autocomplete="email"
             placeholder="Email"
           />
+          @if (form.get('email')?.hasError('required')) {
+          <mat-error>Email is required</mat-error>
+          } @if (form.get('email')?.hasError('email')) {
+          <mat-error>Enter a valid email</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" class="register-form-field">
           <mat-label>Password</mat-label>
@@ -28,6 +33,11 @@
             autocomplete="new-password"
             placeholder="Password"
           />
+          @if (form.get('password')?.hasError('required')) {
+          <mat-error>Password is required</mat-error>
+          } @if (form.get('password')?.hasError('minlength')) {
+          <mat-error>Password must be at least 8 characters</mat-error>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" class="register-form-field">
           <mat-label>Confirm Password</mat-label>
@@ -39,6 +49,11 @@
             autocomplete="new-password"
             placeholder="Confirm Password"
           />
+          @if (form.get('confirmPassword')?.hasError('required')) {
+          <mat-error>Confirm Password is required</mat-error>
+          } @if (form.get('confirmPassword')?.hasError('mismatch')) {
+          <mat-error>Passwords do not match</mat-error>
+          }
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" class="register-form-button">
           Sign Up
