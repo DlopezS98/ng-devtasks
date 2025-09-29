@@ -25,6 +25,12 @@ export class AuthenticationService {
     );
   }
 
+  register(email: string, password: string): Observable<User | null> {
+    return this.http
+      .post<User>(`${this.apiUrl}/authentication/register`, { email, password })
+      .pipe(map((user) => (user ? user : null)));
+  }
+
   getUserFromToken(token: string): Observable<User | null> {
     return this.http.post<User>(`${this.apiUrl}/authentication/validate-token`, { token });
   }
