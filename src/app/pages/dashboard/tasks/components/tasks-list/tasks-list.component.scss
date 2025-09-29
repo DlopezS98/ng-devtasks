@@ -35,7 +35,8 @@
   .table-container {
     position: relative;
     overflow: auto;
-    height: calc(100vh - 310px);
+    min-height: 300px;
+    max-height: calc(100vh - 310px);
 
     table {
       width: 100%;
