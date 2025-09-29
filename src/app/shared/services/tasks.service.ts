@@ -43,7 +43,7 @@ export class TasksService {
 
   updateTask$(taskId: string, updates: Partial<UpdateTask>): Observable<Task> {
     const url = `${this.apiUrl}/tasks/${taskId}`;
-    return this.http.put<Task>(url, updates);
+    return this.http.patch<Task>(url, updates);
   }
 
   deleteTask$(taskId: string): Observable<void> {
